@@ -12,7 +12,7 @@ namespace UnityModManagerNet
 {
     public partial class UnityModManager
     {
-        public const string version = "0.12.2";
+        public const string version = "0.12.3";
         public const string modsDirname = "Mods";
         public const string infoFilename = "info.json";
 
@@ -401,6 +401,14 @@ namespace UnityModManagerNet
                 {
                     this.Logger.Error($"Error trying to call '{namespaceClassnameMethodname}'.");
                     //this.Logger.Error(exception.Message);
+                    this.Logger.Error(exception.ToString());
+                    var inner = exception.InnerException;
+                    while (inner != null)
+                    {
+                        this.Logger.Error(inner.ToString());
+                        inner = inner.InnerException;
+                    }
+                    this.Logger.Error(inner.ToString());
                     Debug.LogException(exception);
                 }
 
